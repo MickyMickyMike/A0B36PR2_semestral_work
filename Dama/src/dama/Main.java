@@ -16,6 +16,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        GUI plocha = new GUI();
         Scanner scan = new Scanner(System.in);
         int vybirac = 1;
         int n, m;
