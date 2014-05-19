@@ -14,14 +14,14 @@ import java.awt.*;
 
 public class GUI extends JFrame {
 
-    JButton tlacitka[][] = new JButton[8][8];
+    private Tlacitko tlacitka[][] = new Tlacitko[8][8];
 
     public GUI() {
         super("Hra dama");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         Container kon = getContentPane(); // vrací kontejner
-        kon.setBackground(Color.magenta);
+        kon.setBackground(Color.black);
         GridLayout srg = new GridLayout(8, 8);
         kon.setLayout(srg);
         vznikTlacitek(kon, tlacitka);
@@ -32,12 +32,13 @@ public class GUI extends JFrame {
     void vznikTlacitek(Container kon, JButton tlacitka[][]) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                tlacitka[i][j] = new JButton();
+                tlacitka[i][j] = new Tlacitko(i,j);
                 if ((i + j) % 2 == 0) {
-                    tlacitka[i][j].setBackground(Color.black);
+                    tlacitka[i][j].setBackground(Color.LIGHT_GRAY);
                 } else {
                     tlacitka[i][j].setBackground(Color.white);
                 }
+                tlacitka[i][j].addActionListener(new HracClovek());
                 kon.add(tlacitka[i][j]);
             }
         }

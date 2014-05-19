@@ -12,6 +12,6 @@ package dama;
  */
 public interface Hrac {
     
-        void vyberTah(Sachovnice sachovnice);
+        public void tahni(Sachovnice sachovnice);
 
 }

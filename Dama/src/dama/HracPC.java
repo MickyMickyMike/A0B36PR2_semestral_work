@@ -12,7 +12,7 @@ package dama;
 public class HracPC implements Hrac {
 
     @Override
-    public void vyberTah(Sachovnice sachovnice) {
+    public void tahni(Sachovnice sachovnice) {
         try{
             Thread.sleep(50);
         } catch (InterruptedException ie){          
