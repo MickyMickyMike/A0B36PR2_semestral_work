@@ -255,7 +255,7 @@ class Sachovnice {
                     }
                     j++;
                 }
-                if (barva(sachovnice[cisloKam - 1][pismenoKam - 1]) != kdoHraje()) {
+                if (barva(sachovnice[cisloKam - 1][pismenoKam - 1]) != kdoHraje() && figurka(sachovnice[cisloKam - 1][pismenoKam - 1])) {
                     a = true;
                 }
             }
@@ -267,7 +267,7 @@ class Sachovnice {
                     }
                     j--;
                 }
-                if (barva(sachovnice[cisloKam - 1][pismenoKam + 1]) != kdoHraje()) {
+                if (barva(sachovnice[cisloKam - 1][pismenoKam + 1]) != kdoHraje() && figurka(sachovnice[cisloKam - 1][pismenoKam + 1])) {
                     a = true;
                 }
             }
@@ -282,7 +282,7 @@ class Sachovnice {
                     }
                     j--;
                 }
-                if (barva(sachovnice[cisloKam + 1][pismenoKam + 1]) != kdoHraje()) {
+                if (barva(sachovnice[cisloKam + 1][pismenoKam + 1]) != kdoHraje() && figurka(sachovnice[cisloKam + 1][pismenoKam + 1])) {
                     a = true;
                 }
             }
@@ -294,7 +294,7 @@ class Sachovnice {
                     }
                     j++;
                 }
-                if (barva(sachovnice[cisloKam + 1][pismenoKam - 1]) != kdoHraje()) {
+                if (barva(sachovnice[cisloKam + 1][pismenoKam - 1]) != kdoHraje() && figurka(sachovnice[cisloKam + 1][pismenoKam - 1])) {
                     a = true;
                 }
             }

@@ -11,10 +11,16 @@ package dama;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class GUI extends JFrame {
 
     private Tlacitko tlacitka[][] = new Tlacitko[8][8];
+    ImageIcon pinclB = new ImageIcon("Sources/pinclB.png");
+    ImageIcon pinclC = new ImageIcon("Sources/pinclC.png");
+    ImageIcon damaB = new ImageIcon("Sources/damaB.png");
+    ImageIcon damaC = new ImageIcon("Sources/damaC.png");
 
     public GUI(Sachovnice sach, HracClovek hrac) {
         super("Hra dama");
@@ -39,10 +45,10 @@ public class GUI extends JFrame {
                     tlacitka[i][j].setBackground(Color.white);
                 }
                 if (sach.getSach()[i][j] == 1) {
-                    tlacitka[i][j].setText("☺");
+                    tlacitka[i][j].setIcon(pinclB);
                 }
                 if (sach.getSach()[i][j] == -1) {
-                    tlacitka[i][j].setText("☻");
+                    tlacitka[i][j].setIcon(pinclC);
                 }
                 tlacitka[i][j].addActionListener(hrac);
                 kon.add(tlacitka[i][j]);
@@ -53,25 +59,26 @@ public class GUI extends JFrame {
     void vypisTlacitek(Sachovnice sach) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                    tlacitka[i][j].setBorder(UIManager.getBorder("Button.border"));              
                 switch (sach.getSach()[i][j]) {
                     case (0): {
-                        tlacitka[i][j].setText("");
+                        tlacitka[i][j].setIcon(null);
                     }
                     break;
                     case (1): {
-                        tlacitka[i][j].setText("  ☺  ");
+                        tlacitka[i][j].setIcon(pinclB);;
                     }
                     break;
                     case (-1): {
-                        tlacitka[i][j].setText("  ☻  ");
+                        tlacitka[i][j].setIcon(pinclC);
                     }
                     break;
                     case (2): {
-                        tlacitka[i][j].setText(" < > ");
+                        tlacitka[i][j].setIcon(damaB);
                     }
                     break;
                     case (-2): {
-                        tlacitka[i][j].setText(" ◄► ");
+                        tlacitka[i][j].setIcon(damaC);
                     }
                     break;
                 }

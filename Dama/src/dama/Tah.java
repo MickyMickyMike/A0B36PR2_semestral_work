@@ -14,32 +14,20 @@ import java.awt.event.ActionListener;
  */
 public class Tah {
 
-    private int counter;
     private int cisloOdkud;
     private int pismenoOdkud;
     private int cisloKam;
     private int pismenoKam;
-    private String figurka;
 
     Tah() {
-        counter = 0;
         cisloOdkud = 20;
         pismenoOdkud = 20;
         cisloKam = 20;
         pismenoKam = 20;
-        figurka = "";
     }
 
     public void setCisloOdkud(int cisloOdkud) {
         this.cisloOdkud = cisloOdkud;
-    }
-
-    public String getFigurka() {
-        return figurka;
-    }
-
-    public void setFigurka(String figurka) {
-        this.figurka = figurka;
     }
 
     public void setPismenoOdkud(int pismenoOdkud) {

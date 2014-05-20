@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -55,7 +57,6 @@ public class HracClovek implements Hrac, ActionListener {
         }
         if (povoleno && povolen) {
             sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
-            correct = true;
             if (sachovnice.getPocetBily() == 0) {
                 System.out.println("Vyhral cerny");
                 System.exit(0);
@@ -74,15 +75,18 @@ public class HracClovek implements Hrac, ActionListener {
         if (counter % 2 == 0) {
             tah.setCisloOdkud(o.getA());
             tah.setPismenoOdkud(o.getB());
-            tah.setFigurka(o.getText());
+            o.setBorder(new LineBorder(Color.RED, 2));
+            counter++;
         } else {
-            tah.setCisloKam(o.getA());
-            tah.setPismenoKam(o.getB());
-            tahni(sachovnice, tah);
-            if (correct) {
-
+            if (o.getA() == tah.getCisloOdkud() && o.getB() == tah.getPismenoOdkud()) {
+                o.setBorder(UIManager.getBorder("Button.border"));
+                counter++;
+            } else {
+                tah.setCisloKam(o.getA());
+                tah.setPismenoKam(o.getB());
+                tahni(sachovnice, tah);
+                counter++;
             }
         };
-        counter++;
     }
 }
