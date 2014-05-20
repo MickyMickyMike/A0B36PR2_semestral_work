@@ -16,13 +16,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        GUI plocha = new GUI();
+        Sachovnice hra = new Sachovnice();
         Scanner scan = new Scanner(System.in);
         int vybirac = 1;
         int n, m;
-        Hrac hrac1 = new HracClovek();
+        //Hrac hrac1 = new HracClovek();
         //Hrac hrac2 = new HracClovek();
-        boolean hra = true;
+        //boolean hra = true;
         System.out.println("----- DAMA -----");
         System.out.println("");
         System.out.println("Prvni hrac (bily): ");

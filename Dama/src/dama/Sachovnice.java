@@ -20,6 +20,8 @@ class Sachovnice {
     private int pocetBily;
     private int pocetCerny;
     private int pocitadlo = 1;
+    private HracClovek hrac;
+    private GUI plocha;
 
     Sachovnice() {
         this.sirka = 8;
@@ -28,6 +30,8 @@ class Sachovnice {
         this.pocetCerny = 12;
         sachovnice = new int[sirka][delka];
         naplnSachovnici();
+        hrac = new HracClovek(this);
+        plocha = new GUI(this, hrac);
     }
 
     public void zamenFigurky(int pismenoOdkud, int cisloOdkud, int pismenoKam, int cisloKam) {
@@ -52,7 +56,7 @@ class Sachovnice {
                     minusBily();
                 }
             }
-
+            this.vypisSachovnici();
         }
         if (this.sachovnice[cisloOdkud][pismenoOdkud] == 2 || this.sachovnice[cisloOdkud][pismenoOdkud] == -2) {
             if (cisloOdkud < cisloKam) {
@@ -358,6 +362,7 @@ class Sachovnice {
     }
 
     public void vypisSachovnici() {
+        plocha.vypisTlacitek(this);
         System.out.println("     A     B     C     D     E     F     G     H");
         System.out.println("   ------------------------------------------------");
         for (int i = 0; i < sachovnice.length; i++) {
@@ -395,58 +400,8 @@ class Sachovnice {
 
         System.out.println("     A     B     C     D     E     F     G     H");
     }
- /*  
-    public void tahni(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
-        boolean povoleno = false;
-            if (jeNaSachovnici(cisloOdkud, pismenoOdkud)) {      //kontroluje, zda existuje policko, pokud ano, jestli je na nem prislusna figurka
-                if (figurka(getSach()[cisloOdkud][pismenoOdkud])) {
-                    if ((barva(getSach()[cisloOdkud][pismenoOdkud]) && kdoHraje()) || (!barva(getSach()[cisloOdkud][pismenoOdkud]) && !kdoHraje())) {
-                        povoleno = true;
-                    }
-                }
-            }
-         boolean   povolen = false;
-            if (jeNaSachovnici(cisloKam, pismenoKam)) {      //zda existuje policko, pokud ano, jestli je prazdne
-                if (!figurka(getSach()[cisloKam][pismenoKam])) {
-                    povoleno = true;
-                }
-            }
-            if (!pohyb(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam) && !skok(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
-                povoleno = false;       //pokud neni tah v souladu s pravidly
-            }
-            if (jeNaSachovnici(cisloKam, pismenoKam) && pohybDama(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
-                povoleno = true;
-            }
-
-            if (!povoleno) {
-                System.out.println("Nemozny tah");
-            }
-        zamenFigurky(pismenoOdkud, cisloOdkud, pismenoKam, cisloKam);
-    }
-
-        @Override
-    public void actionPerformed(ActionEvent e) {
-        int a = 10, b = 10, c = 10, d = 10;
-        System.out.print("deba");
-        boolean i = true;
-        int s = 0;
-        Tlacitko o = (Tlacitko) e.getSource();
-            if (i){
-                a = o.getA();
-                b = o.getB();
-                i = !i;
-                s++;
-            } else {
-                c = o.getA();
-                d = o.getB();
-                i = !i;
-                s++;
-            }
-        zamenFigurky(a,b,c,d);
-        vypisSachovnici();
-    }*/
+ 
     public static void main(String[] args) {
-        GUI plocha = new GUI();
         Sachovnice sachovnice = new Sachovnice();
         sachovnice.naplnSachovnici();
         sachovnice.vypisSachovnici();
