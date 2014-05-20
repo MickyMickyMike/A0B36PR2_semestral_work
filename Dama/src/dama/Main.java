@@ -20,8 +20,8 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         int vybirac = 1;
         int n, m;
-        Hrac hrac1 = new HracPC();
-        Hrac hrac2 = new HracPC();
+        Hrac hrac1 = new HracClovek();
+        //Hrac hrac2 = new HracClovek();
         boolean hra = true;
         System.out.println("----- DAMA -----");
         System.out.println("");
@@ -29,7 +29,7 @@ public class Main {
         System.out.println("1 - Uzivatel");
         System.out.println("2 - Pocitac");
         System.out.println("");
-        do {
+        /*do {
             n = scan.nextInt();
             switch (n) {
                 case (1): {
@@ -73,29 +73,29 @@ public class Main {
         Sachovnice sachovnice = new Sachovnice();
         sachovnice.naplnSachovnici();
         sachovnice.vypisSachovnici();
-        while (sachovnice.hra()) {
+
             if (vybirac % 2 == 1) {
                 System.out.println("");
                 System.out.println("--- Bily na tahu ---");
-                hrac1.vyberTah(sachovnice);
+                hrac1.tahni(sachovnice, new Tah());
                 skok();
                 sachovnice.vypisSachovnici();
             } else {
                 System.out.println("");
                 System.out.println("--- Cerny na tahu ---");
-                hrac2.vyberTah(sachovnice);
+                hrac2.tahni(sachovnice, new Tah());
                 skok();
                 sachovnice.vypisSachovnici();
 
             }
             vybirac++;
-        }
+        
         System.out.println();
         if (vybirac % 2 == 0) {
             System.out.println("Vyhral bily");
         } else {
             System.out.println("Vyhral cerny");
         }
-        System.out.println();
+        System.out.println();*/
     }
 }

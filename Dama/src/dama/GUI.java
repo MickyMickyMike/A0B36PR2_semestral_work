@@ -30,6 +30,8 @@ public class GUI extends JFrame {
     }
 
     void vznikTlacitek(Container kon, JButton tlacitka[][]) {
+        HracClovek pepa = new HracClovek();
+        Sachovnice sach = new Sachovnice();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tlacitka[i][j] = new Tlacitko(i,j);
@@ -38,7 +40,13 @@ public class GUI extends JFrame {
                 } else {
                     tlacitka[i][j].setBackground(Color.white);
                 }
-                tlacitka[i][j].addActionListener(new HracClovek());
+                if (sach.getSach()[i][j] == 1) {
+                    tlacitka[i][j].setText("☺");
+                }
+                if (sach.getSach()[i][j] == -1) {
+                    tlacitka[i][j].setText("☻");
+                }
+                tlacitka[i][j].addActionListener(pepa);
                 kon.add(tlacitka[i][j]);
             }
         }

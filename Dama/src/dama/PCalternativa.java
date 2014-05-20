@@ -12,7 +12,7 @@ package dama;
 public class PCalternativa implements Hrac {
 
     @Override
-    public void tahni(Sachovnice sachovnice) {
+    public void tahni(Sachovnice sachovnice, Tah tah) {
         boolean povoleno = true;
         for (int i = 0; i < sachovnice.getSach().length; i++) {
             for (int j = 0; j < sachovnice.getSach()[0].length; j++) {

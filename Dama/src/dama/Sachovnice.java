@@ -5,6 +5,9 @@
  */
 package dama;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author Trololo
@@ -24,6 +27,7 @@ class Sachovnice {
         this.pocetBily = 12;
         this.pocetCerny = 12;
         sachovnice = new int[sirka][delka];
+        naplnSachovnici();
     }
 
     public void zamenFigurky(int pismenoOdkud, int cisloOdkud, int pismenoKam, int cisloKam) {
@@ -391,8 +395,58 @@ class Sachovnice {
 
         System.out.println("     A     B     C     D     E     F     G     H");
     }
+ /*  
+    public void tahni(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
+        boolean povoleno = false;
+            if (jeNaSachovnici(cisloOdkud, pismenoOdkud)) {      //kontroluje, zda existuje policko, pokud ano, jestli je na nem prislusna figurka
+                if (figurka(getSach()[cisloOdkud][pismenoOdkud])) {
+                    if ((barva(getSach()[cisloOdkud][pismenoOdkud]) && kdoHraje()) || (!barva(getSach()[cisloOdkud][pismenoOdkud]) && !kdoHraje())) {
+                        povoleno = true;
+                    }
+                }
+            }
+         boolean   povolen = false;
+            if (jeNaSachovnici(cisloKam, pismenoKam)) {      //zda existuje policko, pokud ano, jestli je prazdne
+                if (!figurka(getSach()[cisloKam][pismenoKam])) {
+                    povoleno = true;
+                }
+            }
+            if (!pohyb(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam) && !skok(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
+                povoleno = false;       //pokud neni tah v souladu s pravidly
+            }
+            if (jeNaSachovnici(cisloKam, pismenoKam) && pohybDama(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
+                povoleno = true;
+            }
 
+            if (!povoleno) {
+                System.out.println("Nemozny tah");
+            }
+        zamenFigurky(pismenoOdkud, cisloOdkud, pismenoKam, cisloKam);
+    }
+
+        @Override
+    public void actionPerformed(ActionEvent e) {
+        int a = 10, b = 10, c = 10, d = 10;
+        System.out.print("deba");
+        boolean i = true;
+        int s = 0;
+        Tlacitko o = (Tlacitko) e.getSource();
+            if (i){
+                a = o.getA();
+                b = o.getB();
+                i = !i;
+                s++;
+            } else {
+                c = o.getA();
+                d = o.getB();
+                i = !i;
+                s++;
+            }
+        zamenFigurky(a,b,c,d);
+        vypisSachovnici();
+    }*/
     public static void main(String[] args) {
+        GUI plocha = new GUI();
         Sachovnice sachovnice = new Sachovnice();
         sachovnice.naplnSachovnici();
         sachovnice.vypisSachovnici();
