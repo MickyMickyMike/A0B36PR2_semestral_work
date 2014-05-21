@@ -5,6 +5,10 @@
  */
 package dama;
 
+/**
+ *
+ * @author Trololo
+ */
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -18,22 +22,21 @@ import javax.swing.border.LineBorder;
  *
  * @author Trololo
  */
-public class HracClient extends Hrac implements ActionListener {
+public class HracServer extends Hrac implements ActionListener {
 
     private int counter = 0;
     private Tah tah;
     private Sachovnice sachovnice;
     boolean correct = false;
     private Socket sock;
-    private String Ip = "";
 
     Scanner scan = new Scanner(System.in);
 
-    HracClient(Sachovnice sach) {
+    HracServer(Sachovnice sach) {
         sachovnice = sach;
         tah = new Tah();
         try {
-            sock = new Socket(sachovnice.getPlocha().zadejIP(), 9876);
+            sock = new Socket("147.32.93.141", 9876);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -66,54 +69,13 @@ public class HracClient extends Hrac implements ActionListener {
             sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
 
         }
-        System.out.println("Client");
-        System.out.println(Ip);
+        System.out.println("Server");
         sachovnice.vypisSachovnici();
-    }
-
-    public String getIp() {
-        return Ip;
-    }
-
-    public void setIp(String Ip) {
-        this.Ip = Ip;
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
-
-    public Tah getTah() {
-        return tah;
-    }
-
-    public void setTah(Tah tah) {
-        this.tah = tah;
-    }
-
-    public Sachovnice getSachovnice() {
-        return sachovnice;
-    }
-
-    public void setSachovnice(Sachovnice sachovnice) {
-        this.sachovnice = sachovnice;
-    }
-
-    public Socket getSock() {
-        return sock;
-    }
-
-    public void setSock(Socket sock) {
-        this.sock = sock;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (sachovnice.kdoHraje()) {
+        if (!sachovnice.kdoHraje()) {
             Tlacitko o = (Tlacitko) e.getSource();
             if (counter % 2 == 0) {
                 tah.setCisloOdkud(o.getA());

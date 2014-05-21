@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
  * @author Trololo
  */
 public abstract class Hrac implements ActionListener {
-
+    
     public void tahni(Sachovnice sachovnice, Tah tah) {
     }
-;
+
 
 }

@@ -23,20 +23,22 @@ public class GUI extends JFrame {
     private final ImageIcon damaB = new ImageIcon("Sources/damaB.png");
     private final ImageIcon damaC = new ImageIcon("Sources/damaC.png");
 
-    public GUI(Sachovnice sach, Hrac hrac) {
+    public GUI(Sachovnice sach) {
         super("Hra dama");
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
         Container kon = getContentPane(); // vrací kontejner
         kon.setBackground(Color.black);
         GridLayout srg = new GridLayout(8, 8);
         kon.setLayout(srg);
-        vznikTlacitek(kon, tlacitka, sach, hrac);
+        vznikTlacitek(kon, tlacitka, sach);
         setContentPane(kon);
         setSize(800, 800);
     }
 
-    void vznikTlacitek(Container kon, Tlacitko tlacitka[][], Sachovnice sach, Hrac hrac) {
+    void vznikTlacitek(Container kon, Tlacitko tlacitka[][], Sachovnice sach) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tlacitka[i][j] = new Tlacitko(i, j);
@@ -51,7 +53,6 @@ public class GUI extends JFrame {
                 if (sach.getSach()[i][j] == -1) {
                     tlacitka[i][j].setIcon(pinclC);
                 }
-                tlacitka[i][j].addActionListener(hrac);
                 kon.add(tlacitka[i][j]);
             }
         }
@@ -73,6 +74,7 @@ public class GUI extends JFrame {
                     case (-1): {
                         tlacitka[i][j].setIcon(pinclC);
                     }
+
                     break;
                     case (2): {
                         tlacitka[i][j].setIcon(damaB);
@@ -85,5 +87,23 @@ public class GUI extends JFrame {
                 }
             }
         }
+    }
+
+    public int vyberHrace() {
+        int volba = JOptionPane.showOptionDialog(this, "Vyberte, jaky chcete byt typ hrace", "Typ Hrace", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Client (Bily)", "Server (Cerny)"}, null);
+        return volba;
+    }
+    
+    public String zadejIP(){
+        String volba = JOptionPane.showInputDialog(this, "zdar", "bum", JOptionPane.PLAIN_MESSAGE);
+        return volba;
+    }
+    
+    public void nastaveniHrace(Sachovnice sach){
+        for (int i = 0; i < 8; i++){
+                for (int j = 0; j<8; j++){
+                  tlacitka[i][j].addActionListener(sach.getHrac());
+                }
+            }
     }
 }

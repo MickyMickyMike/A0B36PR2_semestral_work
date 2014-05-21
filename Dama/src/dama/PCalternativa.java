@@ -38,6 +38,4 @@ public class PCalternativa extends Hrac {
     @Override
     public void actionPerformed(ActionEvent e) {
     }
-
-
 }

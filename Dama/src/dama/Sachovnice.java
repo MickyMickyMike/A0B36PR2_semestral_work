@@ -7,6 +7,8 @@ package dama;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
 
 /**
  *
@@ -30,8 +32,9 @@ class Sachovnice {
         this.pocetCerny = 12;
         sachovnice = new int[sirka][delka];
         naplnSachovnici();
-        hrac = new HracClient(this);
-        plocha = new GUI(this, hrac);
+        plocha = new GUI(this);
+        hrac();
+        plocha.nastaveniHrace(this);
     }
 
     public void zamenFigurky(int pismenoOdkud, int cisloOdkud, int pismenoKam, int cisloKam) {
@@ -125,6 +128,13 @@ class Sachovnice {
             System.exit(0);
         }
     }
+
+    public void hrac() {
+        if(plocha.vyberHrace() == 0){
+            setHrac(new HracClient(this));
+        } else setHrac(new HracServer(this));
+    }
+    
     /*
      public boolean lzeTahnout(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
      boolean odkud = false;
@@ -161,6 +171,22 @@ class Sachovnice {
 
     public void minusBily() {
         pocetBily--;
+    }
+
+    public GUI getPlocha() {
+        return plocha;
+    }
+
+    public void setPlocha(GUI plocha) {
+        this.plocha = plocha;
+    }
+ 
+    public Hrac getHrac() {
+        return hrac;
+    }
+
+    public void setHrac(Hrac hrac) {
+        this.hrac = hrac;
     }
 
     public int getPocetBily() {
@@ -445,4 +471,5 @@ class Sachovnice {
         sachovnice.vypisSachovnici();
 
     }
+
 }
