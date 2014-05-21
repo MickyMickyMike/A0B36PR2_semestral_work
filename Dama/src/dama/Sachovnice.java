@@ -173,6 +173,14 @@ class Sachovnice {
         pocetBily--;
     }
 
+    public int getPocitadlo() {
+        return pocitadlo;
+    }
+
+    public void setPocitadlo(int pocitadlo) {
+        this.pocitadlo = pocitadlo;
+    }
+
     public GUI getPlocha() {
         return plocha;
     }

@@ -58,4 +58,11 @@ public class Tah {
         return pismenoKam;
     }
 
+    @Override
+    public String toString() {
+        return cisloOdkud + " " + pismenoOdkud + " " + cisloKam + " " + pismenoKam;
+    }
+    
+    
+
 }

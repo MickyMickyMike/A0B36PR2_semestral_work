@@ -25,7 +25,11 @@ public class HracClient extends Hrac implements ActionListener {
     private Sachovnice sachovnice;
     boolean correct = false;
     private Socket sock;
-    private String Ip = "";
+    private OutputStream ostream;
+    private PrintWriter pwrite;
+    private InputStream istream;
+    private BufferedReader receiveRead;
+    private String receiveMessage, sendMessage;
 
     Scanner scan = new Scanner(System.in);
 
@@ -34,6 +38,14 @@ public class HracClient extends Hrac implements ActionListener {
         tah = new Tah();
         try {
             sock = new Socket(sachovnice.getPlocha().zadejIP(), 9876);
+            // sending to client (pwrite object)
+            ostream = sock.getOutputStream();
+            pwrite = new PrintWriter(ostream, true);
+
+            // receiving from server ( receiveRead  object)
+            istream = sock.getInputStream();
+            receiveRead = new BufferedReader(new InputStreamReader(istream));
+            System.out.println("Client");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -67,16 +79,17 @@ public class HracClient extends Hrac implements ActionListener {
 
         }
         System.out.println("Client");
-        System.out.println(Ip);
+        sendMessage = tah.toString();        // keyboard reading
+        pwrite.println(sendMessage);       // sending to server
+        System.out.flush();
         sachovnice.vypisSachovnici();
-    }
-
-    public String getIp() {
-        return Ip;
-    }
-
-    public void setIp(String Ip) {
-        this.Ip = Ip;
+        try {
+            receiveMessage = receiveRead.readLine(); //receive from server
+            System.out.println(receiveMessage); // displaying at DOS prompt 
+        } catch (IOException b) {
+            System.out.println(b);
+        }
+        // flush the data    
     }
 
     public int getCounter() {
@@ -113,6 +126,7 @@ public class HracClient extends Hrac implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        sachovnice.setPocitadlo(sachovnice.getPocitadlo() + 1);
         if (sachovnice.kdoHraje()) {
             Tlacitko o = (Tlacitko) e.getSource();
             if (counter % 2 == 0) {

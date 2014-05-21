@@ -28,7 +28,13 @@ public class HracServer extends Hrac implements ActionListener {
     private Tah tah;
     private Sachovnice sachovnice;
     boolean correct = false;
+    private ServerSocket sersock;
     private Socket sock;
+    private OutputStream ostream;
+    private PrintWriter pwrite;
+    private InputStream istream;
+    private BufferedReader receiveRead;
+    private String receiveMessage, sendMessage;
 
     Scanner scan = new Scanner(System.in);
 
@@ -36,7 +42,15 @@ public class HracServer extends Hrac implements ActionListener {
         sachovnice = sach;
         tah = new Tah();
         try {
-            sock = new Socket("147.32.93.141", 9876);
+            sersock = new ServerSocket(9876);
+            sock = sersock.accept();
+            ostream = sock.getOutputStream();
+            pwrite = new PrintWriter(ostream, true);
+
+            // receiving from server ( receiveRead  object)
+            istream = sock.getInputStream();
+            receiveRead = new BufferedReader(new InputStreamReader(istream));
+            System.out.println("Server");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -70,11 +84,23 @@ public class HracServer extends Hrac implements ActionListener {
 
         }
         System.out.println("Server");
+        sendMessage = tah.toString();        // keyboard reading
+        pwrite.println(sendMessage);       // sending to server
+        System.out.flush();
         sachovnice.vypisSachovnici();
+        try {
+            receiveMessage = receiveRead.readLine(); //receive from server
+            System.out.println(receiveMessage); // displaying at DOS prompt 
+        } catch (IOException b) {
+            System.out.println(b);
+        }
+        // flush the data
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        sachovnice.setPocitadlo(sachovnice.getPocitadlo() + 1);
         if (!sachovnice.kdoHraje()) {
             Tlacitko o = (Tlacitko) e.getSource();
             if (counter % 2 == 0) {
