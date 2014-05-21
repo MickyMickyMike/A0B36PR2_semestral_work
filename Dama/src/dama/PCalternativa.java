@@ -5,11 +5,13 @@
  */
 package dama;
 
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Trololo
  */
-public class PCalternativa implements Hrac {
+public class PCalternativa extends Hrac {
 
     @Override
     public void tahni(Sachovnice sachovnice, Tah tah) {
@@ -31,6 +33,10 @@ public class PCalternativa implements Hrac {
 
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
     }
 
 

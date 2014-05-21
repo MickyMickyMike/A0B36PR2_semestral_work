@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package dama;
+
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Trololo
  */
-public interface Hrac {
-    
-        public void tahni(Sachovnice sachovnice, Tah tah);
+public abstract class Hrac implements ActionListener {
+
+    public void tahni(Sachovnice sachovnice, Tah tah) {
+    }
+;
 
 }

@@ -20,7 +20,7 @@ class Sachovnice {
     private int pocetBily;
     private int pocetCerny;
     private int pocitadlo = 1;
-    private HracClovek hrac;
+    private Hrac hrac;
     private GUI plocha;
 
     Sachovnice() {
@@ -30,11 +30,12 @@ class Sachovnice {
         this.pocetCerny = 12;
         sachovnice = new int[sirka][delka];
         naplnSachovnici();
-        hrac = new HracClovek(this);
+        hrac = new HracClient(this);
         plocha = new GUI(this, hrac);
     }
 
     public void zamenFigurky(int pismenoOdkud, int cisloOdkud, int pismenoKam, int cisloKam) {
+        //if (lzeTahnout(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
         if (this.sachovnice[cisloOdkud][pismenoOdkud] == 1 || this.sachovnice[cisloOdkud][pismenoOdkud] == -1) {
             if (cisloOdkud == cisloKam + 2) {                               //bily vymazani figurky
                 if (pismenoOdkud == pismenoKam - 2) {
@@ -56,7 +57,6 @@ class Sachovnice {
                     minusBily();
                 }
             }
-            this.vypisSachovnici();
         }
         if (this.sachovnice[cisloOdkud][pismenoOdkud] == 2 || this.sachovnice[cisloOdkud][pismenoOdkud] == -2) {
             if (cisloOdkud < cisloKam) {
@@ -103,7 +103,7 @@ class Sachovnice {
                         minusCerny();
                     }
                 }
-
+                // }
             }
         }
         this.sachovnice[cisloKam][pismenoKam] = sachovnice[cisloOdkud][pismenoOdkud];
@@ -115,7 +115,45 @@ class Sachovnice {
             this.sachovnice[cisloKam][pismenoKam] = -2;
         }
         pocitadlo++;
+        this.vypisSachovnici();
+        if (getPocetBily() == 0) {
+            System.out.println("Vyhral cerny");
+            System.exit(0);
+        }
+        if (getPocetCerny() == 0) {
+            System.out.println("Vyhral bily");
+            System.exit(0);
+        }
     }
+    /*
+     public boolean lzeTahnout(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
+     boolean odkud = false;
+     if (jeNaSachovnici(cisloOdkud, pismenoOdkud)) {      //kontroluje, zda existuje policko, pokud ano, jestli je na nem prislusna figurka
+     if (figurka(getSach()[cisloOdkud][pismenoOdkud])) {
+     if ((barva(getSach()[cisloOdkud][pismenoOdkud]) && kdoHraje()) || (!barva(getSach()[cisloOdkud][pismenoOdkud]) && !kdoHraje())) {
+     odkud = true;
+     }
+     }
+     }
+     boolean kam = false;
+     if (jeNaSachovnici(cisloKam, pismenoKam)) {      //zda existuje policko, pokud ano, jestli je prazdne
+     if (!figurka(getSach()[cisloKam][pismenoKam])) {
+     kam = true;
+     }
+     }
+     if (!pohyb(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam) && !skok(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
+     kam = false;       //pokud neni tah v souladu s pravidly
+     }
+     if (jeNaSachovnici(cisloKam, pismenoKam) && pohybDama(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
+     kam = true;
+     }
+     if (odkud && kam) {
+     return true;
+     } else {
+     return false;
+     }
+
+     }*/
 
     public void minusCerny() {
         pocetCerny--;
@@ -124,12 +162,12 @@ class Sachovnice {
     public void minusBily() {
         pocetBily--;
     }
-    
-    public int getPocetBily(){
+
+    public int getPocetBily() {
         return pocetBily;
     }
-    
-    public int getPocetCerny(){
+
+    public int getPocetCerny() {
         return pocetCerny;
     }
 
@@ -400,7 +438,7 @@ class Sachovnice {
 
         System.out.println("     A     B     C     D     E     F     G     H");
     }
- 
+
     public static void main(String[] args) {
         Sachovnice sachovnice = new Sachovnice();
         sachovnice.naplnSachovnici();

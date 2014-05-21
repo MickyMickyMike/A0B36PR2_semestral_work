@@ -17,12 +17,13 @@ import javax.imageio.ImageIO;
 public class GUI extends JFrame {
 
     private Tlacitko tlacitka[][] = new Tlacitko[8][8];
-    ImageIcon pinclB = new ImageIcon("Sources/pinclB.png");
-    ImageIcon pinclC = new ImageIcon("Sources/pinclC.png");
-    ImageIcon damaB = new ImageIcon("Sources/damaB.png");
-    ImageIcon damaC = new ImageIcon("Sources/damaC.png");
 
-    public GUI(Sachovnice sach, HracClovek hrac) {
+    private final ImageIcon pinclB = new ImageIcon("Sources/pinclB.png");
+    private final ImageIcon pinclC = new ImageIcon("Sources/pinclC.png");
+    private final ImageIcon damaB = new ImageIcon("Sources/damaB.png");
+    private final ImageIcon damaC = new ImageIcon("Sources/damaC.png");
+
+    public GUI(Sachovnice sach, Hrac hrac) {
         super("Hra dama");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -35,7 +36,7 @@ public class GUI extends JFrame {
         setSize(800, 800);
     }
 
-    void vznikTlacitek(Container kon, Tlacitko tlacitka[][], Sachovnice sach, HracClovek hrac) {
+    void vznikTlacitek(Container kon, Tlacitko tlacitka[][], Sachovnice sach, Hrac hrac) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tlacitka[i][j] = new Tlacitko(i, j);
@@ -59,7 +60,7 @@ public class GUI extends JFrame {
     void vypisTlacitek(Sachovnice sach) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                    tlacitka[i][j].setBorder(UIManager.getBorder("Button.border"));              
+                tlacitka[i][j].setBorder(UIManager.getBorder("Button.border"));
                 switch (sach.getSach()[i][j]) {
                     case (0): {
                         tlacitka[i][j].setIcon(null);
