@@ -23,15 +23,12 @@ public class HracClient extends Hrac implements ActionListener {
     private int counter = 0;
     private Tah tah;
     private Sachovnice sachovnice;
-    boolean correct = false;
     private Socket sock;
     private OutputStream ostream;
     private PrintWriter pwrite;
     private InputStream istream;
     private BufferedReader receiveRead;
     private String receiveMessage, sendMessage;
-
-    Scanner scan = new Scanner(System.in);
 
     HracClient(Sachovnice sach) {
         sachovnice = sach;
@@ -41,11 +38,9 @@ public class HracClient extends Hrac implements ActionListener {
             // sending to client (pwrite object)
             ostream = sock.getOutputStream();
             pwrite = new PrintWriter(ostream, true);
-
             // receiving from server ( receiveRead  object)
             istream = sock.getInputStream();
             receiveRead = new BufferedReader(new InputStreamReader(istream));
-            System.out.println("Client");
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -53,47 +48,39 @@ public class HracClient extends Hrac implements ActionListener {
 
     @Override
     public void tahni(Sachovnice sachovnice, Tah tah) {
-        boolean povoleno;
-        povoleno = false;
-        if (sachovnice.jeNaSachovnici(tah.getCisloOdkud(), tah.getPismenoOdkud())) {      //kontroluje, zda existuje policko, pokud ano, jestli je na nem prislusna figurka
+        boolean odkud = false;
             if (sachovnice.figurka(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()])) {
                 if ((sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && sachovnice.kdoHraje()) || (!sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && !sachovnice.kdoHraje())) {
-                    povoleno = true;
+                    odkud = true;
                 }
-            }
         }
-        boolean povolen = false;
-        if (sachovnice.jeNaSachovnici(tah.getCisloKam(), tah.getPismenoKam())) {      //zda existuje policko, pokud ano, jestli je prazdne
+        boolean kam = false;
             if (!sachovnice.figurka(sachovnice.getSach()[tah.getCisloKam()][tah.getPismenoKam()])) {
-                povolen = true;
+                kam = true;
             }
-        }
         if (!sachovnice.pohyb(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam()) && !sachovnice.skok(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam())) {
-            povolen = false;       //pokud neni tah v souladu s pravidly
+            kam = false;       //pokud neni tah v souladu s pravidly
         }
-        if (sachovnice.jeNaSachovnici(tah.getCisloKam(), tah.getPismenoKam()) && sachovnice.pohybDama(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam())) {
-            povolen = true;
+        if (sachovnice.pohybDama(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam())) {
+            kam = true;
         }
-        if (povoleno && povolen) {
+        if (odkud && kam) {
             sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
             send(tah);
         }
-        System.out.println("Client tah");
-
         sachovnice.vypisSachovnici();
     }
 
     public void send(Tah tah) {
-        sendMessage = tah.toString();        // keyboard reading
-        pwrite.println(sendMessage);       // sending to server
+        sendMessage = tah.toString();       
+        pwrite.println(sendMessage);       
         System.out.flush();
     }
 
     public void receive() {
         while (receiveMessage == null) {
             try {
-                receiveMessage = receiveRead.readLine(); //receive from server
-                System.out.println(receiveMessage + "client"); // displaying at DOS prompt 
+                receiveMessage = receiveRead.readLine(); 
                 tah.prevodTahu(receiveMessage);
                 sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
             } catch (IOException b) {

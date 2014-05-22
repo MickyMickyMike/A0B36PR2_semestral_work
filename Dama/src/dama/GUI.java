@@ -25,11 +25,9 @@ public class GUI extends JFrame {
 
     public GUI(Sachovnice sach) {
         super("Hra dama");
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
-        Container kon = getContentPane(); // vrací kontejner
+        Container kon = getContentPane();
         kon.setBackground(Color.black);
         GridLayout srg = new GridLayout(8, 8);
         kon.setLayout(srg);
@@ -93,17 +91,26 @@ public class GUI extends JFrame {
         int volba = JOptionPane.showOptionDialog(this, "Vyberte, jaky chcete byt typ hrace", "Typ Hrace", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Client (Bily)", "Server (Cerny)"}, null);
         return volba;
     }
-    
-    public String zadejIP(){
+
+    public String zadejIP() {
         String volba = JOptionPane.showInputDialog(this, "zdar", "bum", JOptionPane.PLAIN_MESSAGE);
         return volba;
     }
-    
-    public void nastaveniHrace(Sachovnice sach){
-        for (int i = 0; i < 8; i++){
-                for (int j = 0; j<8; j++){
-                  tlacitka[i][j].addActionListener(sach.getHrac());
-                }
+
+    public void konecHry(Sachovnice sach) {
+        if (sach.getPocetBily() == 0) {
+            JOptionPane.showMessageDialog(this, "Vyhral cerny", "Konec hry", JOptionPane.PLAIN_MESSAGE);
+        }
+        if (sach.getPocetCerny() == 0) {
+            JOptionPane.showMessageDialog(this, "Vyhral bily", "Konec hry", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    public void nastaveniHrace(Sachovnice sach) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tlacitka[i][j].addActionListener(sach.getHrac());
             }
+        }
     }
 }

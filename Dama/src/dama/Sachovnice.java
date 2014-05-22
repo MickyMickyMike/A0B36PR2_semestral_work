@@ -119,15 +119,9 @@ class Sachovnice {
         }
         pocitadlo++;
         this.vypisSachovnici();
-        if (getPocetBily() == 0) {
-            System.out.println("Vyhral cerny");
-            System.exit(0);
-        }
-        if (getPocetCerny() == 0) {
-            System.out.println("Vyhral bily");
-            System.exit(0);
-        }
-        
+        if (!hra()) {
+            plocha.konecHry(this);
+        } 
     }
 
     public void hrac() {
@@ -228,14 +222,14 @@ class Sachovnice {
         }
         return true;
     }
-
+/*
     public boolean jeNaSachovnici(int cislo, int pismeno) {
         if (cislo >= 0 && cislo <= 7 && pismeno >= 0 && pismeno <= 7) {
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 
     public boolean figurka(int cislo) {
         if (cislo == 1 || cislo == 2 || cislo == -1 || cislo == -2) {
@@ -436,6 +430,8 @@ class Sachovnice {
 
     public void vypisSachovnici() {
         plocha.vypisTlacitek(this);
+        
+        /*
         System.out.println("     A     B     C     D     E     F     G     H");
         System.out.println("   ------------------------------------------------");
         for (int i = 0; i < sachovnice.length; i++) {
@@ -464,14 +460,14 @@ class Sachovnice {
                         System.out.print(" ◄► ");
                     }
                     break;
-                }
-            }
+                }           }
             System.out.print("|");
             System.out.println();
             System.out.println("   ------------------------------------------------");
         }
 
         System.out.println("     A     B     C     D     E     F     G     H");
+        */
     }
 
     public static void main(String[] args) {
