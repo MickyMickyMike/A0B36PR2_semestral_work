@@ -13,13 +13,24 @@ import java.awt.event.ActionListener;
  */
 public abstract class Hrac implements ActionListener {
 
+    /**
+     *
+     * @param sachovnice
+     * @param tah
+     */
     public void tahni(Sachovnice sachovnice, Tah tah) {
     }
 
+    /**
+     *
+     */
     public void receive(){
         
     }
     
+    /**
+     *
+     */
     public void send(){
         
     }

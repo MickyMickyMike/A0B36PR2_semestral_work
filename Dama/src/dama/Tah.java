@@ -26,34 +26,66 @@ public class Tah {
         pismenoKam = 20;
     }
 
+    /**
+     *
+     * @param cisloOdkud
+     */
     public void setCisloOdkud(int cisloOdkud) {
         this.cisloOdkud = cisloOdkud;
     }
 
+    /**
+     *
+     * @param pismenoOdkud
+     */
     public void setPismenoOdkud(int pismenoOdkud) {
         this.pismenoOdkud = pismenoOdkud;
     }
 
+    /**
+     *
+     * @param cisloKam
+     */
     public void setCisloKam(int cisloKam) {
         this.cisloKam = cisloKam;
     }
 
+    /**
+     *
+     * @param pismenoKam
+     */
     public void setPismenoKam(int pismenoKam) {
         this.pismenoKam = pismenoKam;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCisloOdkud() {
         return cisloOdkud;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPismenoOdkud() {
         return pismenoOdkud;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCisloKam() {
         return cisloKam;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPismenoKam() {
         return pismenoKam;
     }
@@ -63,6 +95,10 @@ public class Tah {
         return cisloOdkud + "" + pismenoOdkud + "" + cisloKam + "" + pismenoKam;
     }
 
+    /**
+     *
+     * @param str
+     */
     public void prevodTahu(String str) {
         setCisloOdkud(str.charAt(0) - '0');
         setPismenoOdkud(str.charAt(1) - '0');

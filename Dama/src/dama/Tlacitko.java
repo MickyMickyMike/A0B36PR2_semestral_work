@@ -22,10 +22,18 @@ public class Tlacitko extends JButton {
         this.b = y;
     }
    
+    /**
+     *
+     * @return
+     */
     public int getA () {
         return a;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getB () {
         return b;
     }

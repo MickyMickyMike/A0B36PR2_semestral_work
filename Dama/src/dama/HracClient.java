@@ -46,6 +46,11 @@ public class HracClient extends Hrac implements ActionListener {
         }
     }
 
+    /**
+     *
+     * @param sachovnice
+     * @param tah
+     */
     @Override
     public void tahni(Sachovnice sachovnice, Tah tah) {
         boolean odkud = false;
@@ -71,12 +76,19 @@ public class HracClient extends Hrac implements ActionListener {
         sachovnice.vypisSachovnici();
     }
 
+    /**
+     *
+     * @param tah
+     */
     public void send(Tah tah) {
         sendMessage = tah.toString();       
         pwrite.println(sendMessage);       
         System.out.flush();
     }
 
+    /**
+     *
+     */
     public void receive() {
         while (receiveMessage == null) {
             try {
@@ -90,34 +102,66 @@ public class HracClient extends Hrac implements ActionListener {
         receiveMessage = null;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCounter() {
         return counter;
     }
 
+    /**
+     *
+     * @param counter
+     */
     public void setCounter(int counter) {
         this.counter = counter;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tah getTah() {
         return tah;
     }
 
+    /**
+     *
+     * @param tah
+     */
     public void setTah(Tah tah) {
         this.tah = tah;
     }
 
+    /**
+     *
+     * @return
+     */
     public Sachovnice getSachovnice() {
         return sachovnice;
     }
 
+    /**
+     *
+     * @param sachovnice
+     */
     public void setSachovnice(Sachovnice sachovnice) {
         this.sachovnice = sachovnice;
     }
 
+    /**
+     *
+     * @return
+     */
     public Socket getSock() {
         return sock;
     }
 
+    /**
+     *
+     * @param sock
+     */
     public void setSock(Socket sock) {
         this.sock = sock;
     }

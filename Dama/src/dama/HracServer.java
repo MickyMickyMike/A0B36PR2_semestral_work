@@ -60,6 +60,11 @@ public class HracServer extends Hrac implements ActionListener {
         sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
     }
 
+    /**
+     *
+     * @param sachovnice
+     * @param tah
+     */
     @Override
     public void tahni(Sachovnice sachovnice, Tah tah) {
         boolean odkud = false;
@@ -85,12 +90,19 @@ public class HracServer extends Hrac implements ActionListener {
         sachovnice.vypisSachovnici();
     }
 
+    /**
+     *
+     * @param tah
+     */
     public void send(Tah tah) {
         sendMessage = tah.toString();       
         pwrite.println(sendMessage);       
         System.out.flush();
     }
 
+    /**
+     *
+     */
     public void receive() {
         while (receiveMessage == null) {
             try {
