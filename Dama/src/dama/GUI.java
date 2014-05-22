@@ -101,6 +101,9 @@ public class GUI extends JFrame {
      */
     public int vyberHrace() {
         int volba = JOptionPane.showOptionDialog(this, "Vyberte, jaky chcete byt typ hrace", "Volba Hrace", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Client (Bily)", "Server (Cerny)"}, null);
+        if (volba == 1) {
+            JOptionPane.showMessageDialog(this, "Kazdy tah potvrdte mezernikem!", "Informace", JOptionPane.PLAIN_MESSAGE);
+        }
         return volba;
     }
 
@@ -110,6 +113,7 @@ public class GUI extends JFrame {
      */
     public String zadejIP() {
         String volba = JOptionPane.showInputDialog(this, "Zadejte IP adresu serveru", "IP adresa", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Kazdy tah potvrdte mezernikem!", "Informace", JOptionPane.PLAIN_MESSAGE);
         return volba;
     }
 
