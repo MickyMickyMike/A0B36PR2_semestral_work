@@ -127,6 +127,7 @@ class Sachovnice {
             System.out.println("Vyhral bily");
             System.exit(0);
         }
+        
     }
 
     public void hrac() {

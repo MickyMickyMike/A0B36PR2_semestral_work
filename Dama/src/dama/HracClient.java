@@ -76,20 +76,31 @@ public class HracClient extends Hrac implements ActionListener {
         }
         if (povoleno && povolen) {
             sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
-
+            send(tah);
         }
-        System.out.println("Client");
+        System.out.println("Client tah");
+
+        sachovnice.vypisSachovnici();
+    }
+
+    public void send(Tah tah) {
         sendMessage = tah.toString();        // keyboard reading
         pwrite.println(sendMessage);       // sending to server
         System.out.flush();
-        sachovnice.vypisSachovnici();
-        try {
-            receiveMessage = receiveRead.readLine(); //receive from server
-            System.out.println(receiveMessage); // displaying at DOS prompt 
-        } catch (IOException b) {
-            System.out.println(b);
+    }
+
+    public void receive() {
+        while (receiveMessage == null) {
+            try {
+                receiveMessage = receiveRead.readLine(); //receive from server
+                System.out.println(receiveMessage + "client"); // displaying at DOS prompt 
+                tah.prevodTahu(receiveMessage);
+                sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
+            } catch (IOException b) {
+                System.out.println(b);
+            }
         }
-        // flush the data    
+        receiveMessage = null;
     }
 
     public int getCounter() {
@@ -126,25 +137,27 @@ public class HracClient extends Hrac implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        sachovnice.setPocitadlo(sachovnice.getPocitadlo() + 1);
+
         if (sachovnice.kdoHraje()) {
-            Tlacitko o = (Tlacitko) e.getSource();
-            if (counter % 2 == 0) {
-                tah.setCisloOdkud(o.getA());
-                tah.setPismenoOdkud(o.getB());
-                o.setBorder(new LineBorder(Color.RED, 2));
+        Tlacitko o = (Tlacitko) e.getSource();
+        if (counter % 2 == 0) {
+            tah.setCisloOdkud(o.getA());
+            tah.setPismenoOdkud(o.getB());
+            o.setBorder(new LineBorder(Color.RED, 2));
+            counter++;
+        } else {
+            if (o.getA() == tah.getCisloOdkud() && o.getB() == tah.getPismenoOdkud()) {
+                o.setBorder(UIManager.getBorder("Button.border"));
                 counter++;
             } else {
-                if (o.getA() == tah.getCisloOdkud() && o.getB() == tah.getPismenoOdkud()) {
-                    o.setBorder(UIManager.getBorder("Button.border"));
-                    counter++;
-                } else {
-                    tah.setCisloKam(o.getA());
-                    tah.setPismenoKam(o.getB());
-                    tahni(sachovnice, tah);
-                    counter++;
-                }
-            };
+                tah.setCisloKam(o.getA());
+                tah.setPismenoKam(o.getB());
+                tahni(sachovnice, tah);
+                counter++;
+            }
+        };
+        } else {
+            receive();
         }
     }
 }

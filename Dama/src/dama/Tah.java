@@ -60,9 +60,14 @@ public class Tah {
 
     @Override
     public String toString() {
-        return cisloOdkud + " " + pismenoOdkud + " " + cisloKam + " " + pismenoKam;
+        return cisloOdkud + "" + pismenoOdkud + "" + cisloKam + "" + pismenoKam;
     }
-    
-    
+
+    public void prevodTahu(String str) {
+        setCisloOdkud(str.charAt(0) - '0');
+        setPismenoOdkud(str.charAt(1) - '0');
+        setCisloKam(str.charAt(2) - '0');
+        setPismenoKam(str.charAt(3) - '0');
+    }
 
 }

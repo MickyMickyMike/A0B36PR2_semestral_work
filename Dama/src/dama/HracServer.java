@@ -36,8 +36,6 @@ public class HracServer extends Hrac implements ActionListener {
     private BufferedReader receiveRead;
     private String receiveMessage, sendMessage;
 
-    Scanner scan = new Scanner(System.in);
-
     HracServer(Sachovnice sach) {
         sachovnice = sach;
         tah = new Tah();
@@ -54,6 +52,16 @@ public class HracServer extends Hrac implements ActionListener {
         } catch (IOException e) {
             System.out.println(e);
         }
+        while (receiveMessage == null) {
+            try {
+                receiveMessage = receiveRead.readLine(); //receive from server
+                System.out.println(receiveMessage + "server"); // displaying at DOS prompt 
+                tah.prevodTahu(receiveMessage);
+            } catch (IOException b) {
+                System.out.println(b);
+            }
+        }
+        sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
     }
 
     @Override
@@ -81,27 +89,36 @@ public class HracServer extends Hrac implements ActionListener {
         }
         if (povoleno && povolen) {
             sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
-
+            send(tah);
         }
-        System.out.println("Server");
+        System.out.println("Server tah");
+        sachovnice.vypisSachovnici();
+    }
+
+    public void send(Tah tah) {
         sendMessage = tah.toString();        // keyboard reading
         pwrite.println(sendMessage);       // sending to server
         System.out.flush();
-        sachovnice.vypisSachovnici();
-        try {
-            receiveMessage = receiveRead.readLine(); //receive from server
-            System.out.println(receiveMessage); // displaying at DOS prompt 
-        } catch (IOException b) {
-            System.out.println(b);
-        }
-        // flush the data
+    }
 
+    public void receive() {
+        while (receiveMessage == null) {
+            try {
+                receiveMessage = receiveRead.readLine(); //receive from server
+                System.out.println(receiveMessage + "client"); // displaying at DOS prompt 
+                tah.prevodTahu(receiveMessage);
+                sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
+            } catch (IOException b) {
+                System.out.println(b);
+            }
+        }
+        receiveMessage = null;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        sachovnice.setPocitadlo(sachovnice.getPocitadlo() + 1);
-        if (!sachovnice.kdoHraje()) {
+
+       if (!sachovnice.kdoHraje()) {
             Tlacitko o = (Tlacitko) e.getSource();
             if (counter % 2 == 0) {
                 tah.setCisloOdkud(o.getA());
@@ -119,6 +136,8 @@ public class HracServer extends Hrac implements ActionListener {
                     counter++;
                 }
             };
+       }  else {
+            receive();
         }
     }
 }
