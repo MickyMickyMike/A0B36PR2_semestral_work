@@ -22,10 +22,10 @@ public class GUI extends JFrame {
 
     private Tlacitko tlacitka[][] = new Tlacitko[8][8];
 
-    private final ImageIcon pinclB = new ImageIcon("Resources/pinclB.png");
-    private final ImageIcon pinclC = new ImageIcon("Resources/pinclC.png");
-    private final ImageIcon damaB = new ImageIcon("Resources/damaB.png");
-    private final ImageIcon damaC = new ImageIcon("Resources/damaC.png");
+    private final ImageIcon pinclB = new ImageIcon("pinclB.png");
+    private final ImageIcon pinclC = new ImageIcon("pinclC.png");
+    private final ImageIcon damaB = new ImageIcon("damaB.png");
+    private final ImageIcon damaC = new ImageIcon("damaC.png");
 
     /**
      *
