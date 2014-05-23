@@ -19,6 +19,7 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 /**
+ * trida zastupujici hrace server s cernymi figurkami
  *
  * @author Trololo
  */
@@ -35,6 +36,10 @@ public class HracServer extends Hrac implements ActionListener {
     private BufferedReader receiveRead;
     private String receiveMessage, sendMessage;
 
+    /**
+     * vytvori server, schopny komunikovat s klientem. Pred vytvorenim prijme
+     * prvni tah od soupere a ulozi do promenne tah, a tah provede.
+     */
     HracServer(Sachovnice sach) {
         sachovnice = sach;
         tah = new Tah();
@@ -43,7 +48,6 @@ public class HracServer extends Hrac implements ActionListener {
             sock = sersock.accept();
             ostream = sock.getOutputStream();
             pwrite = new PrintWriter(ostream, true);
-            // receiving from server ( receiveRead  object)
             istream = sock.getInputStream();
             receiveRead = new BufferedReader(new InputStreamReader(istream));
         } catch (IOException e) {
@@ -51,7 +55,7 @@ public class HracServer extends Hrac implements ActionListener {
         }
         while (receiveMessage == null) {
             try {
-                receiveMessage = receiveRead.readLine(); 
+                receiveMessage = receiveRead.readLine();
                 tah.prevodTahu(receiveMessage);
             } catch (IOException b) {
                 System.out.println(b);
@@ -61,6 +65,7 @@ public class HracServer extends Hrac implements ActionListener {
     }
 
     /**
+     * provadi tah, pokud je v souladu s pravidly
      *
      * @param sachovnice
      * @param tah
@@ -68,14 +73,14 @@ public class HracServer extends Hrac implements ActionListener {
     @Override
     public void tahni(Sachovnice sachovnice, Tah tah) {
         boolean odkud = false;
-            if (sachovnice.figurka(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()])) {
-                if ((sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && sachovnice.kdoHraje()) || (!sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && !sachovnice.kdoHraje())) {
-                    odkud = true;
-                }
+        if (sachovnice.figurka(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()])) {
+            if ((sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && sachovnice.kdoHraje()) || (!sachovnice.barva(sachovnice.getSach()[tah.getCisloOdkud()][tah.getPismenoOdkud()]) && !sachovnice.kdoHraje())) {
+                odkud = true;
+            }
         }
         boolean kam = false;
-            if (!sachovnice.figurka(sachovnice.getSach()[tah.getCisloKam()][tah.getPismenoKam()])) {
-                kam = true;
+        if (!sachovnice.figurka(sachovnice.getSach()[tah.getCisloKam()][tah.getPismenoKam()])) {
+            kam = true;
         }
         if (!sachovnice.pohyb(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam()) && !sachovnice.skok(tah.getCisloOdkud(), tah.getPismenoOdkud(), tah.getCisloKam(), tah.getPismenoKam())) {
             kam = false;       //pokud neni tah v souladu s pravidly
@@ -91,22 +96,23 @@ public class HracServer extends Hrac implements ActionListener {
     }
 
     /**
+     * posila zpravy klientovi
      *
      * @param tah
      */
     public void send(Tah tah) {
-        sendMessage = tah.toString();       
-        pwrite.println(sendMessage);       
+        sendMessage = tah.toString();
+        pwrite.println(sendMessage);
         System.out.flush();
     }
 
     /**
-     *
+     * prijima zpravy od klienta
      */
     public void receive() {
         while (receiveMessage == null) {
             try {
-                receiveMessage = receiveRead.readLine(); 
+                receiveMessage = receiveRead.readLine();
                 tah.prevodTahu(receiveMessage);
                 sachovnice.zamenFigurky(tah.getPismenoOdkud(), tah.getCisloOdkud(), tah.getPismenoKam(), tah.getCisloKam());
             } catch (IOException b) {
@@ -116,10 +122,15 @@ public class HracServer extends Hrac implements ActionListener {
         receiveMessage = null;
     }
 
+    /**
+     * pokud je hrac na tahu, prijima od tlacitek souradnice "odkud tahnout" pro
+     * liche akce a "kam tahnout" pro sude akce. Pokud hrac neni na tahu, zapne
+     * prijimani zprav.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       if (!sachovnice.kdoHraje()) {
+        if (!sachovnice.kdoHraje()) {
             Tlacitko o = (Tlacitko) e.getSource();
             if (counter % 2 == 0) {
                 tah.setCisloOdkud(o.getA());
@@ -137,7 +148,7 @@ public class HracServer extends Hrac implements ActionListener {
                     counter++;
                 }
             };
-       }  else {
+        } else {
             receive();
         }
     }

@@ -8,7 +8,7 @@ package dama;
 import java.awt.event.ActionListener;
 
 /**
- *
+ *nadrazena trida pro vsechny hrace, urcuje schnopnost hracu tahnout, prijimat a odesilat zpravy
  * @author Trololo
  */
 public abstract class Hrac implements ActionListener {
@@ -22,14 +22,14 @@ public abstract class Hrac implements ActionListener {
     }
 
     /**
-     *
+     *metoda pro prijimani zprav od protihrace
      */
     public void receive(){
         
     }
     
     /**
-     *
+     *metoda pro posilani zprav protihraci
      */
     public void send(){
         

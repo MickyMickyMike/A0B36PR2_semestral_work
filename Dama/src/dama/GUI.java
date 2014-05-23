@@ -28,7 +28,7 @@ public class GUI extends JFrame {
     private final ImageIcon damaC = new ImageIcon("damaC.png");
 
     /**
-     *
+     * vytvori graficke hraci pole, nastavi mrizku 8x8 pro sachovnici
      * @param sach
      */
     public GUI(Sachovnice sach) {
@@ -44,6 +44,10 @@ public class GUI extends JFrame {
         setSize(800, 800);
     }
 
+     /**
+     * nastaví barvu tlacitek, aby odpovidala sachovnici
+     * rozmisti zakladni figurky na zakladni pozice
+     */
     void vznikTlacitek(Container kon, Tlacitko tlacitka[][], Sachovnice sach) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -63,7 +67,12 @@ public class GUI extends JFrame {
             }
         }
     }
-
+    
+ /**
+     * podle hodnot, ktere jsou v sach vykresluje figurky na sachovnici
+     * zaroven nastavuje standardni okraje tlacitek
+     * @param sach
+     */
     void vypisTlacitek(Sachovnice sach) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -96,8 +105,8 @@ public class GUI extends JFrame {
     }
 
     /**
-     *
-     * @return
+     *volba typu hrace
+     * @return 0 pro typ Client(bily), 1 pro typ Server(cerny)
      */
     public int vyberHrace() {
         int volba = JOptionPane.showOptionDialog(this, "Vyberte, jaky chcete byt typ hrace", "Volba Hrace", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"Client (Bily)", "Server (Cerny)"}, null);
@@ -108,8 +117,8 @@ public class GUI extends JFrame {
     }
 
     /**
-     *
-     * @return
+     *zadani IP adresy serveru
+     * @return IP adresa
      */
     public String zadejIP() {
         String volba = JOptionPane.showInputDialog(this, "Zadejte IP adresu serveru", "IP adresa", JOptionPane.PLAIN_MESSAGE);
@@ -118,7 +127,7 @@ public class GUI extends JFrame {
     }
 
     /**
-     *
+     *vypis viteze
      * @param sach
      */
     public void konecHry(Sachovnice sach) {
@@ -131,7 +140,7 @@ public class GUI extends JFrame {
     }
 
     /**
-     *
+     *nastavi hrace jako actionListener tlacitek
      * @param sach
      */
     public void nastaveniHrace(Sachovnice sach) {

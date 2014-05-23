@@ -9,7 +9,7 @@ package dama;
 import javax.swing.JButton;
 
 /**
- *
+ *trida reprezentujici policko na sachovnici
  * @author Trololo
  */
 public class Tlacitko extends JButton {
@@ -23,16 +23,16 @@ public class Tlacitko extends JButton {
     }
    
     /**
-     *
-     * @return
+     *souradnice urcujici cislo na sachovnici
+     * @return a
      */
     public int getA () {
         return a;
     }
     
     /**
-     *
-     * @return
+     *souradnice urcujici pismeno na sachovnici
+     * @return b
      */
     public int getB () {
         return b;

@@ -5,12 +5,8 @@
  */
 package dama;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-
 /**
+ * trida zastupujici sachovnici
  *
  * @author Trololo
  */
@@ -25,6 +21,10 @@ class Sachovnice {
     private Hrac hrac;
     private GUI plocha;
 
+    /**
+     * vytvoreni sachovnice 8x8 s 12 figurkami na kazde strane vytvoreni
+     * graficke hraci plochy a hrace
+     */
     Sachovnice() {
         this.sirka = 8;
         this.delka = 8;
@@ -37,9 +37,18 @@ class Sachovnice {
         plocha.nastaveniHrace(this);
     }
 
+    /**
+     * zamenuje figurky na sachovnici podle tahu ktery je zadan 4 parametry po
+     * zamene vypise sachovnici a zkontroluje, jestli neni konec hry
+     *
+     * @param pismenoOdkud
+     * @param cisloOdkud
+     * @param pismenoKam
+     * @param cisloKam
+     */
     public void zamenFigurky(int pismenoOdkud, int cisloOdkud, int pismenoKam, int cisloKam) {
         //if (lzeTahnout(cisloOdkud, pismenoOdkud, cisloKam, pismenoKam)) {
-        if (this.sachovnice[cisloOdkud][pismenoOdkud] == 1 || this.sachovnice[cisloOdkud][pismenoOdkud] == -1) {
+        if (this.sachovnice[cisloOdkud][pismenoOdkud] == 1 || this.sachovnice[cisloOdkud][pismenoOdkud] == -1) { //pesec
             if (cisloOdkud == cisloKam + 2) {                               //bily vymazani figurky
                 if (pismenoOdkud == pismenoKam - 2) {
                     this.sachovnice[cisloOdkud - 1][pismenoOdkud + 1] = 0;
@@ -61,7 +70,7 @@ class Sachovnice {
                 }
             }
         }
-        if (this.sachovnice[cisloOdkud][pismenoOdkud] == 2 || this.sachovnice[cisloOdkud][pismenoOdkud] == -2) {
+        if (this.sachovnice[cisloOdkud][pismenoOdkud] == 2 || this.sachovnice[cisloOdkud][pismenoOdkud] == -2) { //dama
             if (cisloOdkud < cisloKam) {
                 if (pismenoOdkud < pismenoKam) {
                     if (barva(sachovnice[cisloKam - 1][pismenoKam - 1]) && !kdoHraje()) {
@@ -121,15 +130,20 @@ class Sachovnice {
         this.vypisSachovnici();
         if (!hra()) {
             plocha.konecHry(this);
-        } 
+        }
     }
 
+    /**
+     * nastavi typ hrace
+     */
     public void hrac() {
-        if(plocha.vyberHrace() == 0){
+        if (plocha.vyberHrace() == 0) {
             setHrac(new HracClient(this));
-        } else setHrac(new HracServer(this));
+        } else {
+            setHrac(new HracServer(this));
+        }
     }
-    
+
     /*
      public boolean lzeTahnout(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
      boolean odkud = false;
@@ -159,55 +173,107 @@ class Sachovnice {
      }
 
      }*/
-
+    /**
+     * snizi pocet figurek cerneho
+     */
     public void minusCerny() {
         pocetCerny--;
     }
 
+    /**
+     * snizi pocet figurek bileho
+     */
     public void minusBily() {
         pocetBily--;
     }
 
+    /**
+     *
+     * @return pocitadlo
+     */
     public int getPocitadlo() {
         return pocitadlo;
     }
 
+    /**
+     * set pocitadlo
+     *
+     * @param pocitadlo
+     */
     public void setPocitadlo(int pocitadlo) {
         this.pocitadlo = pocitadlo;
     }
 
+    /**
+     *
+     * @return plocha
+     */
     public GUI getPlocha() {
         return plocha;
     }
 
+    /**
+     *
+     * @param plocha
+     */
     public void setPlocha(GUI plocha) {
         this.plocha = plocha;
     }
- 
+
+    /**
+     *
+     * @return hrac
+     */
     public Hrac getHrac() {
         return hrac;
     }
 
+    /**
+     *
+     * @param hrac
+     */
     public void setHrac(Hrac hrac) {
         this.hrac = hrac;
     }
 
+    /**
+     * vraci pocet figurek bileho
+     *
+     * @return pocetBily
+     */
     public int getPocetBily() {
         return pocetBily;
     }
 
+    /**
+     * vraci pocet figurek cerneho
+     *
+     * @return pocetCerny
+     */
     public int getPocetCerny() {
         return pocetCerny;
     }
 
+    /**
+     *
+     * @return delka sachovnice
+     */
     public int getLength() {
         return this.sachovnice.length;
     }
 
+    /**
+     *
+     * @return sachovnice
+     */
     public int[][] getSach() {
         return this.sachovnice;
     }
 
+    /**
+     * 
+     * @return hrac na tahu
+     */
     public boolean kdoHraje() {
         if (this.pocitadlo % 2 == 1) {
             return true;                //hraje bily
@@ -216,21 +282,31 @@ class Sachovnice {
         }
     }
 
+    /**
+     * kontroluje, jestli maji oba hraci stale nejakou figurku
+     * @return boolean
+     */
     public boolean hra() {
         if (this.pocetBily == 0 || this.pocetCerny == 0) {
             return false;
         }
         return true;
     }
-/*
-    public boolean jeNaSachovnici(int cislo, int pismeno) {
-        if (cislo >= 0 && cislo <= 7 && pismeno >= 0 && pismeno <= 7) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
+    
+    /*
+     public boolean jeNaSachovnici(int cislo, int pismeno) {
+     if (cislo >= 0 && cislo <= 7 && pismeno >= 0 && pismeno <= 7) {
+     return true;
+     } else {
+     return false;
+     }
+     }*/
 
+    /**
+     * kontroluje, jestli je na pozici "cislo" figurka
+     * @param cislo
+     * @return boolean
+     */
     public boolean figurka(int cislo) {
         if (cislo == 1 || cislo == 2 || cislo == -1 || cislo == -2) {
             return true;
@@ -239,6 +315,11 @@ class Sachovnice {
         }
     }
 
+    /**
+     * 
+     * @param cislo
+     * @return 
+     */
     public boolean barva(int cislo) {
         if (cislo == 1 || cislo == 2) {
             return true;        //bila
@@ -247,6 +328,14 @@ class Sachovnice {
         }
     }
 
+    /**
+     * kontroluje, jestli je tah pěšce (pohyb) v souladu s pravidly
+     * @param cisloOdkud
+     * @param pismenoOdkud
+     * @param cisloKam
+     * @param pismenoKam
+     * @return 
+     */
     public boolean pohyb(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {      //kontroluje pohyb figurek (mimo damy)
         if (figurka(this.sachovnice[cisloOdkud][pismenoOdkud]) && !figurka(this.sachovnice[cisloKam][pismenoKam])) {
             if (barva(this.sachovnice[cisloOdkud][pismenoOdkud])) {         //bily
@@ -273,6 +362,14 @@ class Sachovnice {
         return false;
     }
 
+    /**
+     * kontroluje, jestli je tah pěšce (skok) v souladu s pravidly
+     * @param cisloOdkud
+     * @param pismenoOdkud
+     * @param cisloKam
+     * @param pismenoKam
+     * @return 
+     */
     public boolean skok(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {       //kontroluje skakani figurek (mimo damy)
         if (figurka(this.sachovnice[cisloOdkud][pismenoOdkud]) && !figurka(this.sachovnice[cisloKam][pismenoKam])) {
             if (barva(this.sachovnice[cisloOdkud][pismenoOdkud])) {         //bily
@@ -311,6 +408,14 @@ class Sachovnice {
         return false;
     }
 
+    /**
+     * kontroluje volnou diagonalu mezi pocatecnimi souradnicemi a koncovymi souradnicemi
+     * @param cisloOdkud
+     * @param pismenoOdkud
+     * @param cisloKam
+     * @param pismenoKam
+     * @return 
+     */
     public boolean diagonala(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {       //kontrola volne diagonaly pro damu
         boolean a = true;
         if (cisloOdkud < cisloKam) {
@@ -369,6 +474,14 @@ class Sachovnice {
         return a;
     }
 
+    /**
+     * kontroluje, jestli je pohyb damy v souladu  pravidly
+     * @param cisloOdkud
+     * @param pismenoOdkud
+     * @param cisloKam
+     * @param pismenoKam
+     * @return 
+     */
     public boolean pohybDama(int cisloOdkud, int pismenoOdkud, int cisloKam, int pismenoKam) {
         if (sachovnice[cisloOdkud][pismenoOdkud] == 2 || sachovnice[cisloOdkud][pismenoOdkud] == -2) {
             if (!figurka(sachovnice[cisloKam][pismenoKam])) {
@@ -382,6 +495,10 @@ class Sachovnice {
         return false;
     }
 
+    /**
+     * nastavi pocatecni rozmisteni figurek na sachovnici.
+     * figurky stoji na bilych hracich polích, ve trech radach na obou stranach
+     */
     public void naplnSachovnici() {
         for (int i = 0; i < 3; i++) {
             if (i == 1) {
@@ -428,53 +545,48 @@ class Sachovnice {
         }
     }
 
+    /*
+    vola metodu GUI vypisTlacitek
+    */
     public void vypisSachovnici() {
         plocha.vypisTlacitek(this);
-        
+
         /*
-        System.out.println("     A     B     C     D     E     F     G     H");
-        System.out.println("   ------------------------------------------------");
-        for (int i = 0; i < sachovnice.length; i++) {
+         System.out.println("     A     B     C     D     E     F     G     H");
+         System.out.println("   ------------------------------------------------");
+         for (int i = 0; i < sachovnice.length; i++) {
 
-            System.out.print(sachovnice.length - i + " ");
-            for (int j = 0; j < sachovnice[0].length; j++) {
-                System.out.print("|");
-                switch (sachovnice[i][j]) {
-                    case (0): {
-                        System.out.print("     ");
-                    }
-                    break;
-                    case (1): {
-                        System.out.print("  ☺  ");
-                    }
-                    break;
-                    case (-1): {
-                        System.out.print("  ☻  ");
-                    }
-                    break;
-                    case (2): {
-                        System.out.print(" < > ");
-                    }
-                    break;
-                    case (-2): {
-                        System.out.print(" ◄► ");
-                    }
-                    break;
-                }           }
-            System.out.print("|");
-            System.out.println();
-            System.out.println("   ------------------------------------------------");
-        }
+         System.out.print(sachovnice.length - i + " ");
+         for (int j = 0; j < sachovnice[0].length; j++) {
+         System.out.print("|");
+         switch (sachovnice[i][j]) {
+         case (0): {
+         System.out.print("     ");
+         }
+         break;
+         case (1): {
+         System.out.print("  ☺  ");
+         }
+         break;
+         case (-1): {
+         System.out.print("  ☻  ");
+         }
+         break;
+         case (2): {
+         System.out.print(" < > ");
+         }
+         break;
+         case (-2): {
+         System.out.print(" ◄► ");
+         }
+         break;
+         }           }
+         System.out.print("|");
+         System.out.println();
+         System.out.println("   ------------------------------------------------");
+         }
 
-        System.out.println("     A     B     C     D     E     F     G     H");
-        */
+         System.out.println("     A     B     C     D     E     F     G     H");
+         */
     }
-
-    public static void main(String[] args) {
-        Sachovnice sachovnice = new Sachovnice();
-        sachovnice.naplnSachovnici();
-        sachovnice.vypisSachovnici();
-
-    }
-
 }

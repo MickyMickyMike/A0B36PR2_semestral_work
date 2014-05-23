@@ -5,10 +5,8 @@
  */
 package dama;
 
-import java.util.*;
-
 /**
- *
+ *hlavni trida programu
  * @author Trololo
  */
 public class Main {
@@ -20,7 +18,7 @@ public class Main {
     }
 
     /**
-     *
+     *vytvori novy objekt sachovnice
      * @param args
      */
     public static void main(String[] args) {

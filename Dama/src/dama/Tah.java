@@ -5,11 +5,8 @@
  */
 package dama;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 /**
- *
+ *trida reprezentujici tah
  * @author Trololo
  */
 public class Tah {
@@ -60,7 +57,7 @@ public class Tah {
 
     /**
      *
-     * @return
+     * @return cisloOdkud
      */
     public int getCisloOdkud() {
         return cisloOdkud;
@@ -68,7 +65,7 @@ public class Tah {
 
     /**
      *
-     * @return
+     * @return pismenoOdkud
      */
     public int getPismenoOdkud() {
         return pismenoOdkud;
@@ -76,7 +73,7 @@ public class Tah {
 
     /**
      *
-     * @return
+     * @return cisloKam
      */
     public int getCisloKam() {
         return cisloKam;
@@ -84,7 +81,7 @@ public class Tah {
 
     /**
      *
-     * @return
+     * @return pismenoKam
      */
     public int getPismenoKam() {
         return pismenoKam;
@@ -96,7 +93,7 @@ public class Tah {
     }
 
     /**
-     *
+     *prevod str na 4 integery odpovidajici souradnicim tahu
      * @param str
      */
     public void prevodTahu(String str) {
